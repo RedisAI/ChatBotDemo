@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/app
+    links:
+    - redisai
+  redisai:
+    image: redisai/redisai:edge
+    ports:
+      - "6379:6379"
