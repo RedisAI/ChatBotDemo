@@ -7,9 +7,12 @@ This repository contains the backend web app built with Flask, front end built w
 - Install `docker-compose` & `docker` if you don't have it
 - Run `docker-compose up`. This will bring up the Flask application (application server for the chatbot) and RedisAI (Redis database server and RedisAI with PyTorch runtime)
 
-If you haven't seen any issues with `docker-compose`, you should have both services up by now. Try out the API (we have only one API endpoint -> `/chat` which accepts `message` as the json key with your message as value) using `curl` like given below or access the simple UI at `http://localhost:5000`.
+If you haven't seen any issues with `docker-compose`, you should have both services up by now. Try out the API (we have only one API endpoint -> `/chat` which accepts `message` as the json key with your message as value) using `curl` like given below.
 
 ```
 curl http://localhost:5000/chat -H "Content-Type: application/json" -d '{"message": "I am crazy"}'
 ```
 
+Or access the simple UI at `http://localhost:5000`
+
+![RedisAI chatbot demo with pytorch](static/screenshot.png)
