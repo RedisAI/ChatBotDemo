@@ -2,7 +2,7 @@
 An example that showcases the benefit of running AI inside Redis
 
 
-This repository contains the backend web app built with Flask, front end built with Angular (compiled to native JS) and the model files required for the chatbot to work. Follow below steps to bring the chatbot.
+This repository contains the backend web app built with Flask, front end built with Angular (compiled to native JS) and the model files required for the chatbot to work. Follow below steps to bring the chatbot up.
 
 - Install `docker-compose` & `docker` if you don't have it
 - Run `docker-compose up`. This will bring up the Flask application (application server for the chatbot) and redisai (database server and RedisAI with PyTorch runtime)
