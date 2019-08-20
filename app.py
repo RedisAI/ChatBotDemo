@@ -2,10 +2,10 @@ import os
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from . import utils
-from . import redis_db
+import utils
+import redis_db
 
-db_host = os.environ.get('REDIS_IP') or 'localhost'
+db_host = os.environ.get('REDIS_IP') or 'redisai'
 db_port = os.environ.get('REDIS_PORT') or 6379
 
 

@@ -19,7 +19,7 @@ class Voc:
 
 
 voc = Voc()
-voc_file = f'{dirname(dirname(dirname(__file__)))}/models/pytorch/chatbot/voc.json'
+voc_file = f'{dirname(__file__)}/assets/voc.json'
 voc.load_data(voc_file)
 
 
@@ -37,10 +37,6 @@ def get_batched_indices(sentence):
 
 def list2numpy(indices):
     return np.array(indices, dtype=np.long).transpose()
-
-
-def get_length(array):
-    return np.array([len(array)], dtype=np.long)
 
 
 def indices2str(indices):
