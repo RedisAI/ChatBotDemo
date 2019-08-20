@@ -1,16 +1,15 @@
-## How to run the Demo
+# ChatBot Demo
+An example that showcases the benefit of running AI inside Redis
 
-Since we wanted to keep the directory structure intact, redisai_examples/models/ has all the models. For our flask app to get the models, we'll have to run the Docker build from the root directory of this example repo. Also, you might have to run the Redis server and bind it to 0.0.0.0 to make it accessible from other network, even if the docker and Redis server are in the same machine. Below given are the steps to follow to make the server up and run the example.
 
-- cd rediai_examples repo's root folder
-- Since Dockerfile is in chatbot folder, pass that as `-f` option. Run `docker build -t redisai_chatbot -f python_client/chatbot/Dockerfile .`
-- Run `docker run -e REDIS_IP='<Server_IP>' -p 5000:5000 redisai_chatbot` to bring up the flask server inside docker
-- Run redis server with `--bind` and bind it to `0.0.0.0` -> `redis-server --loadmodule build/redisai.so --bind 0.0.0.0`
+This repository contains the backend web app built with Flask, front end built with Angular (compiled to native JS) and the model files required for the chatbot to work. Follow below steps to bring the chatbot.
 
-Now the RedisServer and Flask application are up. If you want to try the API, we have only one API endpoint -> `/chat` which accpets `message` as the json key with your message as value.
+- Install `docker-compose` & `docker` if you don't have it
+- Run `docker-compose up`. This will bring up the Flask application (application server for the chatbot) and redisai (database server and RedisAI with PyTorch runtime)
+
+If you haven't seen any issues so far, you should have the flask application and RedisAI server up by now. Try out the API (we have only one API endpoint -> `/chat` which accepts `message` as the json key with your message as value) using `curl` like given below or access the simple UI at `http://localhost:5000`.
 
 ```
-curl http://localhost:5000/chat -H "Content-Type: application/json" -d '{"message": "I think I am crazy"}'
+curl http://localhost:5000/chat -H "Content-Type: application/json" -d '{"message": "I am crazy"}'
 ```
 
-But we have made a naive UI also for you to chat from the browser. Go to the URL `http://localhost:5000` to see it in action.
