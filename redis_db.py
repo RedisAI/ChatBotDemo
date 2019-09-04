@@ -26,7 +26,7 @@ class DB:
     def process(self, nparray):
         tensor = rai.BlobTensor.from_numpy(nparray)
         self.con.tensorset('sentence', tensor)
-        self.con.modelrun('encoder', input=['sentence', 'hidden'], output=['e_output', 'hidden'])
+        self.con.modelrun('encoder', inputs=['sentence', 'hidden'], outputs=['e_output', 'hidden'])
         sos_tensor = rai.BlobTensor.from_numpy(
             np.array(utils.SOS_token, dtype=np.int64).reshape(1, 1))
         self.con.tensorset('d_input', sos_tensor)
@@ -36,8 +36,8 @@ class DB:
             i += 1
             self.con.modelrun(
                 'decoder',
-                input=['d_input', 'hidden', 'e_output'],
-                output=['d_output', 'hidden'])
+                inputs=['d_input', 'hidden', 'e_output'],
+                outputs=['d_output', 'hidden'])
             d_output = self.con.tensorget('d_output', as_type=rai.BlobTensor).to_numpy()
             d_output_ret = d_output.reshape(1, utils.voc.num_words)
             ind = int(d_output_ret.argmax())
