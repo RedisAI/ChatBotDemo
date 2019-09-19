@@ -4,9 +4,10 @@ An example that showcases the benefit of running AI inside Redis
 This repository contains the backend web app built with Flask, front end built with Angular (compiled to native JS) and the model files required for the chatbot to work. Follow below steps to bring the chatbot up.
 
 ## Architecture
-When the flask application starts, it will set an initial `hidden` tensor.  This `hidden` tensor represents the intermediate state of the conversation.  On each new message received, an `input` tensor and the `hidden` tensor are passed through the model, which in turn produces an `output` and overrides the `hidden` tensor with the new intermediate state.
+When the flask application starts, [it will set an initial](https://github.com/RedisAI/ChatBotDemo/blob/master/redis_db.py#L23) `hidden` tensor.  This `hidden` tensor represents the intermediate state of the conversation.  On each new message received, an `sentence` tensor and the `hidden` tensor are passed through the model, which in turn produces an `output` and overrides the `hidden` tensor with the new intermediate state.
 ![ChatBot Flow](static/sequence-diagram.png)
 
+(Note this diagram is simplified, the full flow can be followed [here](https://github.com/RedisAI/ChatBotDemo/blob/master/redis_db.py)
 
 ## Requirements
 Docker, Docker-compose
