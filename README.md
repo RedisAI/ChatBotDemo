@@ -1,18 +1,49 @@
 # ChatBot Demo
 An example that showcases the benefit of running AI inside Redis
 
-
 This repository contains the backend web app built with Flask, front end built with Angular (compiled to native JS) and the model files required for the chatbot to work. Follow below steps to bring the chatbot up.
 
-- Install `docker-compose` & `docker` if you don't have it
-- Run `docker-compose up`. This will bring up the Flask application (application server for the chatbot) and RedisAI (Redis database server and RedisAI with PyTorch runtime)
+## Architecture
+When the flask application starts, it will set an initial `hidden` tensor.  This `hidden` tensor represents the intermediate state of the conversation.  On each new message received, an `input` tensor and the `hidden` tensor are passed through the model, which in turn produces an `output` and overrides the `hidden` tensor with the new intermediate state.
+![ChatBot Flow](static/sequence-diagram.png)
 
-If you haven't seen any issues with `docker-compose`, you should have both services up by now. Try out the API (we have only one API endpoint -> `/chat` which accepts `message` as the json key with your message as value) using `curl` like given below.
+
+## Requirements
+Docker, Docker-compose
+
+## Running the demo
+
+```
+$ git clone git@github.com:RedisAI/ChatBotDemo.git
+$ cd ChatBotDemo
+$ docker-compose up
+```
+
+### API
+Try out the API (we have only one API endpoint -> `/chat` which accepts `message` as the json key with your message as value) using `curl` like given below.
 
 ```
 curl http://localhost:5000/chat -H "Content-Type: application/json" -d '{"message": "I am crazy"}'
 ```
 
-Or access the simple UI at `http://localhost:5000`
+### CLI
+Open a second terminal and inspect the keys
+
+```
+$ redis-cli
+127.0.0.1:6379> keys *
+1) "d_output"
+2) "decoder"
+3) "hidden"
+4) "encoder"
+5) "e_output"
+6) "d_input"
+7) "sentence"
+127.0.0.1:6379> type hidden
+AI_TENSOR
+```
+
+### UI
+Open a browser and point it to `http://localhost:5000`.
 
 ![RedisAI chatbot demo with pytorch](static/screenshot.png)
