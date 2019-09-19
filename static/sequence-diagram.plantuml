@@ -1,0 +1,28 @@
+@startuml
+actor User
+collections Flask
+database RedisAI
+participant PyTorch
+Flask -> Flask : Init
+activate Flask
+Flask -> RedisAI : \nAI.TENSORSET hidden \n [...]
+RedisAI --> Flask : ok
+deactivate Flask
+...  ...
+User -> Flask : How are you?
+activate Flask
+group Pipeline
+Flask -> RedisAI : AI.TENSORSET sentence \n [0.32, 0.42, 0.01, ..]
+RedisAI --> Flask : ok
+Flask -> RedisAI : MODELRUN
+RedisAI -> RedisAI : get `sentence` and `hidden`
+RedisAI -> PyTorch : run model
+PyTorch --> RedisAI :
+RedisAI -> RedisAI : set `hidden` & `output`
+RedisAI --> Flask : ok
+Flask -> RedisAI: AI.TENSORGET output
+RedisAI --> Flask : [0.24, 0.33, 0.12, ..]
+end
+deactivate Flask
+Flask -> User : I am good
+@enduml
