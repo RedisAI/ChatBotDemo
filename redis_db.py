@@ -19,7 +19,7 @@ class DB:
         self.con.modelset('encoder', 'torch', 'cpu', en_model)
         self.con.modelset('decoder', 'torch', 'cpu', de_model)
         # 4 = no layers + no directions, 1 = batch, 500 = hidden size
-        dummy_hidden = np.array(np.zeros((2, 1, 500), dtype=np.float32))
+        dummy_hidden = np.zeros((2, 1, 500), dtype=np.float32)
         self.con.tensorset('hidden', dummy_hidden)
 
     def process(self, nparray):
@@ -35,7 +35,7 @@ class DB:
                 'decoder',
                 inputs=['d_input', 'hidden', 'e_output'],
                 outputs=['d_output', 'hidden'])
-            d_output = self.con.tensorget('d_output', as_numpy=True)
+            d_output = self.con.tensorget('d_output')
             d_output_ret = d_output.reshape(1, utils.voc.num_words)
             ind = int(d_output_ret.argmax())
             if ind == utils.EOS_token:
