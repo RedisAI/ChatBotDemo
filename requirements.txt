@@ -1,0 +1,4 @@
+redisai==1.2.2
+flask==2.0.3
+flask-cors>=3.0.9
+ml2rt>=0.2.0

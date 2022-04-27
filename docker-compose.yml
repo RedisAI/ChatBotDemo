@@ -9,6 +9,6 @@ services:
     links:
     - redisai
   redisai:
-    image: redisai/redisai:edge
+    image: redislabs/redisai:edge-cpu-bionic
     ports:
       - "6379:6379"
