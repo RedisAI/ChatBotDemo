@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker-compose up
+      run: docker-compose up -d
     - name: Verify with curl
       uses: wei/curl@v1.1.1
       with:
