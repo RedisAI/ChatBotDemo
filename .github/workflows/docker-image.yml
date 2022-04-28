@@ -19,7 +19,7 @@ jobs:
     - name: Verify with curl
       uses: wei/curl@v1.1.1
       with:
-        args: http://localhost:5000/chat -H "Content-Type:application/json" -d '{"message":"I am crazy"}'
+        args: http://localhost:5000/chat --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40 -H "Content-Type:application/json" -d '{"message":"I am crazy"}'
       
     
 
