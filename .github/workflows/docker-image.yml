@@ -16,17 +16,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: upgrade docker compose to modern
+      run: |
+         curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o  /tmp/docker-compose
+         chmod a+x /tmp/docker-compose
     - name: Build the Docker image
-      run: docker-compose up -d
-    - name: Waiting for Docker
-      uses: jakejarvis/wait-action@master
-      with:
-        time: '30s'            
+      run: |
+        /tmp/docker-compose --version
+        /tmp/docker-compose up -d --wait
+        sleep 30  # to stabilize
     - name: Verify with curl
-      uses: wei/curl@v1.1.1
-      with:
-        args: http://localhost:5000/chat --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40 -H "Content-Type:application/json" -d '{"message":"I am crazy"}'
-      
-    
-
-
+      run:
+        curl http://172.17.0.1:5000/chat --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40 -H "Content-Type:application/json" -d '{"message":"I am crazy"}'
