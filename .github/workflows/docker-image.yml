@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: upgrade docker compose to modern
       run: |
-         apt install -y curl
+         sudo apt install -y curl
          curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o  /tmp/docker-compose
          chmod a+x /tmp/docker-compose
     - name: Build the Docker image
