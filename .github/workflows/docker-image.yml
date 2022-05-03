@@ -16,10 +16,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: upgrade docker compose to modern
+      run: |
+         apt install -y curl
+         curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o  /tmp/docker-compose
+         chmod a+x /tmp/docker-compose
     - name: Build the Docker image
       run: |
-        docker-compose --version
-        docker-compose up -d --wait
+        /tmp/docker-compose --version
+        /tmp/docker-compose up -d --wait
     - name: Verify with curl
       uses: wei/curl@v1.1.1
       with:
